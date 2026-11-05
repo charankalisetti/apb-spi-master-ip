@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">APB Interfaced SPI Master top-level architecture</title>
+  <desc id="desc">APB3 pins feed an APB slave and register bank. The SPI controller, baud divider, shift registers, bit counter, and output controls connect to SCLK, MOSI, MISO, and active-low chip selects.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#52657a"/></marker>
+    <style>
+      text{font-family:Segoe UI,Arial,sans-serif;fill:#15263b}.title{font-size:30px;font-weight:700}.subtitle{font-size:16px;fill:#52657a}.head{font-size:18px;font-weight:700}.body{font-size:15px}.small{font-size:13px;fill:#52657a}.wire{fill:none;stroke:#52657a;stroke-width:3;marker-end:url(#arrow)}.bus{fill:#edf3f8;stroke:#66809a;stroke-width:2}.block{fill:#fff;stroke:#64809c;stroke-width:2}.core{fill:#f3f7fb;stroke:#56728f;stroke-width:2}.inner{fill:#fff;stroke:#8ca1b6;stroke-width:1.6}.label{font-size:13px;font-weight:600;fill:#314a63}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fbfcfe"/>
+  <text x="55" y="58" class="title">APB Interfaced SPI Master — Top-Level Architecture</text>
+  <text x="55" y="88" class="subtitle">One PCLK domain · APB3 register access · serial engine for one active SPI transaction</text>
+  <rect x="45" y="145" width="235" height="520" rx="16" class="bus"/>
+  <text x="72" y="185" class="head">APB3 boundary</text>
+  <text x="72" y="226" class="body">Inputs</text>
+  <text x="88" y="254" class="body">PCLK, PRESETn</text>
+  <text x="88" y="282" class="body">PADDR, PSEL</text>
+  <text x="88" y="310" class="body">PENABLE, PWRITE</text>
+  <text x="88" y="338" class="body">PWDATA[31:0]</text>
+  <line x1="68" y1="366" x2="255" y2="366" stroke="#cad6e2"/>
+  <text x="72" y="402" class="body">Outputs</text>
+  <text x="88" y="430" class="body">PRDATA[31:0]</text>
+  <text x="88" y="458" class="body">PREADY, PSLVERR</text>
+  <text x="72" y="521" class="small">APB3 baseline</text>
+  <text x="72" y="544" class="small">32-bit data bus</text>
+  <text x="72" y="567" class="small">word-aligned registers</text>
+
+  <rect x="335" y="205" width="260" height="250" rx="14" class="block"/>
+  <text x="365" y="245" class="head">APB slave</text>
+  <text x="365" y="280" class="body">Setup / access control</text>
+  <text x="365" y="309" class="body">Address &amp; write decode</text>
+  <text x="365" y="338" class="body">Read response mux</text>
+  <text x="365" y="393" class="small">Qualifies register reads/writes</text>
+
+  <rect x="650" y="165" width="305" height="335" rx="14" class="block"/>
+  <text x="680" y="205" class="head">Register bank</text>
+  <rect x="680" y="230" width="245" height="54" rx="8" class="inner"/><text x="700" y="264" class="body">Control / configuration</text>
+  <rect x="680" y="299" width="245" height="54" rx="8" class="inner"/><text x="700" y="333" class="body">TX data / command</text>
+  <rect x="680" y="368" width="245" height="54" rx="8" class="inner"/><text x="700" y="402" class="body">RX data / status</text>
+  <rect x="680" y="437" width="245" height="42" rx="8" class="inner"/><text x="700" y="464" class="body">Optional IRQ state</text>
+
+  <rect x="1010" y="145" width="365" height="520" rx="18" class="core"/>
+  <text x="1040" y="185" class="head">SPI protocol engine</text>
+  <rect x="1040" y="215" width="145" height="90" rx="9" class="inner"/><text x="1058" y="250" class="body">Controller</text><text x="1058" y="275" class="small">FSM / edge control</text>
+  <rect x="1200" y="215" width="145" height="90" rx="9" class="inner"/><text x="1218" y="250" class="body">Baud divider</text><text x="1218" y="275" class="small">PCLK count → tick</text>
+  <rect x="1040" y="340" width="145" height="90" rx="9" class="inner"/><text x="1058" y="375" class="body">TX shifter</text><text x="1058" y="400" class="small">MOSI data path</text>
+  <rect x="1200" y="340" width="145" height="90" rx="9" class="inner"/><text x="1218" y="375" class="body">RX shifter</text><text x="1218" y="400" class="small">MISO data path</text>
+  <rect x="1120" y="465" width="145" height="75" rx="9" class="inner"/><text x="1140" y="496" class="body">Bit counter</text><text x="1140" y="520" class="small">final-bit detect</text>
+  <text x="1040" y="590" class="small">SCLK and CS controls are sequenced by the controller.</text>
+  <text x="1040" y="614" class="small">SCLK is an output; internal logic remains on PCLK.</text>
+
+  <rect x="1435" y="205" width="135" height="390" rx="16" class="bus"/>
+  <text x="1455" y="245" class="head">SPI pins</text>
+  <text x="1455" y="295" class="body">SCLK</text>
+  <text x="1455" y="340" class="body">MOSI</text>
+  <text x="1455" y="385" class="body">MISO</text>
+  <text x="1455" y="430" class="body">CS_n[N-1:0]</text>
+  <line x1="1450" y1="458" x2="1555" y2="458" stroke="#cad6e2"/>
+  <text x="1455" y="493" class="small">CS active low</text>
+  <text x="1455" y="516" class="small">one selected</text>
+  <text x="1455" y="539" class="small">target at a time</text>
+
+  <path d="M280 320 H335" class="wire"/>
+  <text x="286" y="305" class="label">APB</text>
+  <path d="M595 320 H650" class="wire"/>
+  <text x="598" y="305" class="label">reg access</text>
+  <path d="M650 430 H620 V520 H1040 V260" class="wire"/>
+  <text x="790" y="510" class="label">configuration + command</text>
+  <path d="M925 325 H1005 V385 H1040" class="wire"/>
+  <text x="946" y="310" class="label">TX word</text>
+  
+  <path d="M1185 385 H1400 V340 H1435" class="wire"/>
+  <text x="1370" y="330" class="label">MOSI</text>
+  <path d="M1435 385 H1400 V430 H1345" class="wire"/>
+  <text x="1371" y="451" class="label">MISO</text>
+  <path d="M1185 215 V130 H1410 V295 H1435" class="wire"/>
+  <text x="1377" y="150" class="label">SCLK</text>
+  <path d="M1200 280 H1185" class="wire"/>
+  <text x="1188" y="324" class="label">baud tick</text>
+  <path d="M1112 305 V340" class="wire"/>
+  <text x="1120" y="331" class="label">shift</text>
+  <path d="M1185 290 H1192 V360 H1200" class="wire"/>
+  <text x="1192" y="350" class="label">sample</text>
+  <path d="M1265 540 V565 H1400 V430 H1435" fill="none" stroke="#52657a" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+  <text x="1268" y="587" class="label">CS control</text>
+  <path d="M1200 385 H1170 V510 H1265" fill="none" stroke="#52657a" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+  <path d="M1200 385 H980 V395 H925" class="wire"/>
+  <text x="970" y="382" class="label">RX word</text>
+
+  <rect x="45" y="710" width="1525" height="115" rx="14" fill="#f1f5f9" stroke="#d3dde7"/>
+  <text x="75" y="750" class="head">Clocking rule</text>
+  <text x="75" y="782" class="body">The divider creates timing enables in the PCLK domain. SCLK transitions are registered outputs; they do not clock internal counters or FSM state.</text>
+</svg>
