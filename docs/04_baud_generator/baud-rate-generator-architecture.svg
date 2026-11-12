@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1500" viewBox="0 0 2400 1500" role="img" aria-labelledby="title desc">
+<title id="title">Baud Rate Generator Block Diagram</title>
+<desc id="desc">Vertical central Baud_Rate_Generator block with labeled input arrows pointing inward from the left and output arrows pointing outward on the right.</desc>
+<defs>
+  <marker id="inArrow" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto" markerUnits="strokeWidth"><path d="M1 1 L15 8 L1 15 Z" fill="#314d65"/></marker>
+  <marker id="outArrow" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto" markerUnits="strokeWidth"><path d="M1 1 L15 8 L1 15 Z" fill="#147d86"/></marker>
+  <style>
+    .bg{fill:#ffffff}.block{fill:#a9d9d9;stroke:#315e70;stroke-width:4}.title{font:600 44px 'Segoe UI',Arial,sans-serif;fill:#17364f}.heading{font:600 26px 'Segoe UI',Arial,sans-serif;fill:#39556d}.port{font:500 26px 'Segoe UI',Arial,sans-serif;fill:#1e3446}.caption{font:400 19px 'Segoe UI',Arial,sans-serif;fill:#587187}.in{stroke:#314d65;stroke-width:4;fill:none;marker-end:url(#inArrow)}.out{stroke:#147d86;stroke-width:4;fill:none;marker-end:url(#outArrow)}.separator{stroke:#8dbfc2;stroke-width:2}
+  </style>
+</defs>
+<rect class="bg" width="2400" height="1500"/>
+<text x="1200" y="92" text-anchor="middle" class="title">BAUD RATE GENERATOR — BLOCK DIAGRAM</text>
+<text x="1200" y="132" text-anchor="middle" class="caption">Module ports from Baud_Rate_Generator.v • block interface only</text>
+
+<!-- Main block -->
+<rect x="850" y="220" width="700" height="1120" rx="10" class="block"/>
+<text x="1200" y="715" text-anchor="middle" class="title" style="font-size:40px">Baud_Rate_Generator</text>
+<line x1="990" y1="755" x2="1410" y2="755" class="separator"/>
+<text x="1200" y="804" text-anchor="middle" class="caption">SPI baud-rate generator</text>
+
+<!-- Input heading -->
+<text x="110" y="202" class="heading">INPUTS</text>
+<!-- Input labels and arrows: arrowheads terminate at the block boundary -->
+<text x="110" y="307" class="port">PCLK</text>
+<path d="M360 299 H850" class="in"/>
+
+<text x="110" y="407" class="port">PRESET_n</text>
+<text x="285" y="407" class="caption">active-low async reset</text>
+<path d="M590 399 H850" class="in"/>
+
+<text x="110" y="507" class="port">ss_i</text>
+<text x="190" y="507" class="caption">active-low select</text>
+<path d="M385 499 H850" class="in"/>
+
+<text x="110" y="607" class="port">spiswai_i</text>
+<path d="M295 599 H850" class="in"/>
+
+<text x="110" y="707" class="port">spi_mode_i[1:0]</text>
+<text x="352" y="707" class="caption">RUN=00, WAIT=01, STOP=10</text>
+<path d="M675 699 H850" class="in"/>
+
+<text x="110" y="807" class="port">cpol_i</text>
+<path d="M260 799 H850" class="in"/>
+
+<text x="110" y="907" class="port">cpha_i</text>
+<path d="M260 899 H850" class="in"/>
+
+<text x="110" y="1007" class="port">sppr_i[2:0]</text>
+<path d="M300 999 H850" class="in"/>
+
+<text x="110" y="1107" class="port">spr_i[2:0]</text>
+<path d="M280 1099 H850" class="in"/>
+
+<!-- Output heading -->
+<text x="1695" y="202" class="heading">OUTPUTS</text>
+<!-- Output labels and arrows: arrows originate at the block boundary and point outward -->
+<path d="M1550 365 H1940" class="out"/>
+<text x="1980" y="374" class="port">sclk_o</text>
+
+<path d="M1550 500 H1940" class="out"/>
+<text x="1980" y="509" class="port">BaudRateDivisor_o[11:0]</text>
+
+<path d="M1550 650 H1940" class="out"/>
+<text x="1980" y="659" class="port">miso_receive_sclk_o</text>
+
+<path d="M1550 770 H1940" class="out"/>
+<text x="1980" y="779" class="port">miso_receive_sclk0_o</text>
+
+<path d="M1550 890 H1940" class="out"/>
+<text x="1980" y="899" class="port">mosi_send_sclk_o</text>
+
+<path d="M1550 1010 H1940" class="out"/>
+<text x="1980" y="1019" class="port">mosi_send_sclk0_o</text>
+
+<!-- Port notes -->
+<text x="1695" y="1152" class="caption">sclk_o is the serial-clock output.</text>
+<text x="1695" y="1185" class="caption">The four miso/mosi signals are internal</text>
+<text x="1695" y="1218" class="caption">timing enables to the SPI shifter.</text>
+</svg>

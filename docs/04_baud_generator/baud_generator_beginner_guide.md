@@ -37,9 +37,9 @@ Read that peripheral's datasheet. Check its maximum SPI clock frequency and timi
 
 ## 2. Block boundary diagram
 
-![Baud-rate generator black-box inputs and outputs](baud_generator_block_diagram.png)
+![Baud-rate generator block diagram with clearly directed input and output arrows](baud-rate-generator-architecture.svg)
 
-The blue arrows point **into** the block; the green arrows point **out**. `sclk_o` is the generated SPI clock. The four `*_sclk*` signals are internal timing strobes for the shifter, not four extra SPI clock pins.
+In this diagram, the left-side arrows point into the block and the right-side arrows point out. `sclk_o` is the generated SPI clock. The four `*_sclk*` signals are internal timing strobes for the shifter, not four extra SPI clock pins.
 
 ## 3. Inputs: source and purpose
 
@@ -126,6 +126,10 @@ Choose field values that produce a rate no faster than the device permits. If an
 | 3 | 1 | 1 | High | Trailing (rising) |
 
 The lecture slide describes the same phase choice as odd-numbered versus even-numbered SCLK edges: `CPHA=0` samples on odd edges; `CPHA=1` samples on even edges. `CPOL` determines whether those edges rise or fall.
+
+![Visual waveform guide for all four SPI modes](spi-cpol-cpha-waveform-guide.svg)
+
+Use the waveform sheet to compare the four combinations: `CPOL` sets the idle level, and `CPHA` decides whether sampling happens on the first or second edge after selection.
 
 ## 7. When is the clock allowed to run?
 

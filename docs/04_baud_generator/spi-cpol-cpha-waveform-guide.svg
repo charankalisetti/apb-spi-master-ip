@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600" role="img" aria-labelledby="title desc">
+  <title id="title">SPI CPOL and CPHA Waveform Guide</title>
+  <desc id="desc">Four SPI mode waveforms showing clock idle polarity and whether data is sampled or changed on each clock edge.</desc>
+  <defs>
+    <marker id="sampleArrow" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M0 0 L10 0 L5 10 z" fill="#d65b20"/>
+    </marker>
+    <marker id="changeArrow" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M0 0 L10 0 L5 10 z" fill="#2766b1"/>
+    </marker>
+    <style>
+      .title { font: 700 54px Arial, sans-serif; fill: #15263d; }
+      .subtitle { font: 400 27px Arial, sans-serif; fill: #4d5d72; }
+      .mode { font: 700 34px Arial, sans-serif; fill: #15263d; }
+      .setting { font: 600 22px Arial, sans-serif; fill: #43546b; }
+      .sample-edge { font: 700 20px Arial, sans-serif; fill: #b84914; }
+      .trace-label { font: 700 20px Arial, sans-serif; fill: #34465d; }
+      .pill { font: 700 17px Arial, sans-serif; letter-spacing: .7px; }
+      .footer-head { font: 700 24px Arial, sans-serif; fill: #15263d; }
+      .footer { font: 400 21px Arial, sans-serif; fill: #34465d; }
+      .tiny { font: 400 17px Arial, sans-serif; fill: #607087; }
+    </style>
+  </defs>
+
+  <rect width="2400" height="1600" fill="#f3f6fa"/>
+  <text class="title" x="90" y="92">SPI CLOCK &amp; DATA TIMING</text>
+  <text class="subtitle" x="92" y="142">CPOL sets the idle clock level. CPHA selects which edge samples the data.</text>
+
+  <g transform="translate(1510 65)">
+    <rect x="0" y="0" width="330" height="52" rx="16" fill="#fff1e8" stroke="#d65b20" stroke-width="2"/>
+    <circle cx="27" cy="26" r="8" fill="#d65b20"/>
+    <text class="sample-edge" x="48" y="33">SAMPLE / READ DATA</text>
+    <rect x="355" y="0" width="345" height="52" rx="16" fill="#eaf2ff" stroke="#2766b1" stroke-width="2"/>
+    <circle cx="382" cy="26" r="8" fill="#2766b1"/>
+    <text x="403" y="33" style="font:700 20px Arial,sans-serif;fill:#205792">CHANGE / SHIFT DATA</text>
+  </g>
+
+  <!-- MODE 0 -->
+  <g>
+    <rect x="80" y="195" width="2240" height="280" rx="24" fill="#ffffff" stroke="#d8e0ea" stroke-width="2"/>
+    <rect x="80" y="195" width="370" height="280" rx="24" fill="#e9f2f7"/>
+    <path d="M430 195 h20 v280 h-20" fill="#e9f2f7"/>
+    <text class="mode" x="115" y="247">MODE 0</text>
+    <text class="setting" x="116" y="289">CPOL = 0  ·  CPHA = 0</text>
+    <text class="setting" x="116" y="331">Idle SCLK: LOW</text>
+    <rect x="112" y="356" width="295" height="54" rx="14" fill="#fff1e8"/>
+    <text class="sample-edge" x="132" y="391">SAMPLE ON RISING ↑</text>
+    <text class="tiny" x="116" y="445">First edge samples the bit</text>
+    <text class="trace-label" x="490" y="365">SCLK</text>
+    <path d="M575 390 H850 V330 H1180 V390 H1510 V330 H1840 V390 H2215" fill="none" stroke="#167f91" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>
+    <g stroke="#b8c6d5" stroke-width="2" stroke-dasharray="5 8">
+      <path d="M850 286 V405"/><path d="M1180 286 V405"/><path d="M1510 286 V405"/><path d="M1840 286 V405"/>
+    </g>
+    <g>
+      <rect x="778" y="266" width="144" height="38" rx="12" fill="#fff1e8" stroke="#d65b20" stroke-width="2"/>
+      <text class="pill" x="850" y="291" text-anchor="middle" fill="#b84914">SAMPLE</text>
+      <path d="M850 304 V347" stroke="#d65b20" stroke-width="3" marker-end="url(#sampleArrow)"/>
+      <circle cx="850" cy="360" r="10" fill="#d65b20" stroke="#fff" stroke-width="3"/>
+      <rect x="1108" y="266" width="144" height="38" rx="12" fill="#eaf2ff" stroke="#2766b1" stroke-width="2"/>
+      <text class="pill" x="1180" y="291" text-anchor="middle" fill="#205792">CHANGE</text>
+      <path d="M1180 304 V347" stroke="#2766b1" stroke-width="3" marker-end="url(#changeArrow)"/>
+      <circle cx="1180" cy="360" r="10" fill="#2766b1" stroke="#fff" stroke-width="3"/>
+      <rect x="1438" y="266" width="144" height="38" rx="12" fill="#fff1e8" stroke="#d65b20" stroke-width="2"/>
+      <text class="pill" x="1510" y="291" text-anchor="middle" fill="#b84914">SAMPLE</text>
+      <path d="M1510 304 V347" stroke="#d65b20" stroke-width="3" marker-end="url(#sampleArrow)"/>
+      <circle cx="1510" cy="360" r="10" fill="#d65b20" stroke="#fff" stroke-width="3"/>
+      <rect x="1768" y="266" width="144" height="38" rx="12" fill="#eaf2ff" stroke="#2766b1" stroke-width="2"/>
+      <text class="pill" x="1840" y="291" text-anchor="middle" fill="#205792">CHANGE</text>
+      <path d="M1840 304 V347" stroke="#2766b1" stroke-width="3" marker-end="url(#changeArrow)"/>
+      <circle cx="1840" cy="360" r="10" fill="#2766b1" stroke="#fff" stroke-width="3"/>
+    </g>
+  </g>
+
+  <!-- MODE 1 -->
+  <g>
+    <rect x="80" y="495" width="2240" height="280" rx="24" fill="#ffffff" stroke="#d8e0ea" stroke-width="2"/>
+    <rect x="80" y="495" width="370" height="280" rx="24" fill="#eef0fa"/>
+    <path d="M430 495 h20 v280 h-20" fill="#eef0fa"/>
+    <text class="mode" x="115" y="547">MODE 1</text>
+    <text class="setting" x="116" y="589">CPOL = 0  ·  CPHA = 1</text>
+    <text class="setting" x="116" y="631">Idle SCLK: LOW</text>
+    <rect x="112" y="656" width="295" height="54" rx="14" fill="#fff1e8"/>
+    <text class="sample-edge" x="132" y="691">SAMPLE ON FALLING ↓</text>
+    <text class="tiny" x="116" y="745">Second edge samples the bit</text>
+    <text class="trace-label" x="490" y="665">SCLK</text>
+    <path d="M575 690 H850 V630 H1180 V690 H1510 V630 H1840 V690 H2215" fill="none" stroke="#167f91" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>
+    <g stroke="#b8c6d5" stroke-width="2" stroke-dasharray="5 8">
+      <path d="M850 586 V705"/><path d="M1180 586 V705"/><path d="M1510 586 V705"/><path d="M1840 586 V705"/>
+    </g>
+    <g>
+      <rect x="778" y="566" width="144" height="38" rx="12" fill="#eaf2ff" stroke="#2766b1" stroke-width="2"/>
+      <text class="pill" x="850" y="591" text-anchor="middle" fill="#205792">CHANGE</text>
+      <path d="M850 604 V647" stroke="#2766b1" stroke-width="3" marker-end="url(#changeArrow)"/>
+      <circle cx="850" cy="660" r="10" fill="#2766b1" stroke="#fff" stroke-width="3"/>
+      <rect x="1108" y="566" width="144" height="38" rx="12" fill="#fff1e8" stroke="#d65b20" stroke-width="2"/>
+      <text class="pill" x="1180" y="591" text-anchor="middle" fill="#b84914">SAMPLE</text>
+      <path d="M1180 604 V647" stroke="#d65b20" stroke-width="3" marker-end="url(#sampleArrow)"/>
+      <circle cx="1180" cy="660" r="10" fill="#d65b20" stroke="#fff" stroke-width="3"/>
+      <rect x="1438" y="566" width="144" height="38" rx="12" fill="#eaf2ff" stroke="#2766b1" stroke-width="2"/>
+      <text class="pill" x="1510" y="591" text-anchor="middle" fill="#205792">CHANGE</text>
+      <path d="M1510 604 V647" stroke="#2766b1" stroke-width="3" marker-end="url(#changeArrow)"/>
+      <circle cx="1510" cy="660" r="10" fill="#2766b1" stroke="#fff" stroke-width="3"/>
+      <rect x="1768" y="566" width="144" height="38" rx="12" fill="#fff1e8" stroke="#d65b20" stroke-width="2"/>
+      <text class="pill" x="1840" y="591" text-anchor="middle" fill="#b84914">SAMPLE</text>
+      <path d="M1840 604 V647" stroke="#d65b20" stroke-width="3" marker-end="url(#sampleArrow)"/>
+      <circle cx="1840" cy="660" r="10" fill="#d65b20" stroke="#fff" stroke-width="3"/>
+    </g>
+  </g>
+
+  <!-- MODE 2 -->
+  <g>
+    <rect x="80" y="795" width="2240" height="280" rx="24" fill="#ffffff" stroke="#d8e0ea" stroke-width="2"/>
+    <rect x="80" y="795" width="370" height="280" rx="24" fill="#e9f2f7"/>
+    <path d="M430 795 h20 v280 h-20" fill="#e9f2f7"/>
+    <text class="mode" x="115" y="847">MODE 2</text>
+    <text class="setting" x="116" y="889">CPOL = 1  ·  CPHA = 0</text>
+    <text class="setting" x="116" y="931">Idle SCLK: HIGH</text>
+    <rect x="112" y="956" width="295" height="54" rx="14" fill="#fff1e8"/>
+    <text class="sample-edge" x="132" y="991">SAMPLE ON FALLING ↓</text>
+    <text class="tiny" x="116" y="1045">First edge samples the bit</text>
+    <text class="trace-label" x="490" y="965">SCLK</text>
+    <path d="M575 930 H850 V990 H1180 V930 H1510 V990 H1840 V930 H2215" fill="none" stroke="#167f91" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>
+    <g stroke="#b8c6d5" stroke-width="2" stroke-dasharray="5 8">
+      <path d="M850 886 V1005"/><path d="M1180 886 V1005"/><path d="M1510 886 V1005"/><path d="M1840 886 V1005"/>
+    </g>
+    <g>
+      <rect x="778" y="866" width="144" height="38" rx="12" fill="#fff1e8" stroke="#d65b20" stroke-width="2"/>
+      <text class="pill" x="850" y="891" text-anchor="middle" fill="#b84914">SAMPLE</text>
+      <path d="M850 904 V947" stroke="#d65b20" stroke-width="3" marker-end="url(#sampleArrow)"/>
+      <circle cx="850" cy="960" r="10" fill="#d65b20" stroke="#fff" stroke-width="3"/>
+      <rect x="1108" y="866" width="144" height="38" rx="12" fill="#eaf2ff" stroke="#2766b1" stroke-width="2"/>
+      <text class="pill" x="1180" y="891" text-anchor="middle" fill="#205792">CHANGE</text>
+      <path d="M1180 904 V947" stroke="#2766b1" stroke-width="3" marker-end="url(#changeArrow)"/>
+      <circle cx="1180" cy="960" r="10" fill="#2766b1" stroke="#fff" stroke-width="3"/>
+      <rect x="1438" y="866" width="144" height="38" rx="12" fill="#fff1e8" stroke="#d65b20" stroke-width="2"/>
+      <text class="pill" x="1510" y="891" text-anchor="middle" fill="#b84914">SAMPLE</text>
+      <path d="M1510 904 V947" stroke="#d65b20" stroke-width="3" marker-end="url(#sampleArrow)"/>
+      <circle cx="1510" cy="960" r="10" fill="#d65b20" stroke="#fff" stroke-width="3"/>
+      <rect x="1768" y="866" width="144" height="38" rx="12" fill="#eaf2ff" stroke="#2766b1" stroke-width="2"/>
+      <text class="pill" x="1840" y="891" text-anchor="middle" fill="#205792">CHANGE</text>
+      <path d="M1840 904 V947" stroke="#2766b1" stroke-width="3" marker-end="url(#changeArrow)"/>
+      <circle cx="1840" cy="960" r="10" fill="#2766b1" stroke="#fff" stroke-width="3"/>
+    </g>
+  </g>
+
+  <!-- MODE 3 -->
+  <g>
+    <rect x="80" y="1095" width="2240" height="280" rx="24" fill="#ffffff" stroke="#d8e0ea" stroke-width="2"/>
+    <rect x="80" y="1095" width="370" height="280" rx="24" fill="#eef0fa"/>
+    <path d="M430 1095 h20 v280 h-20" fill="#eef0fa"/>
+    <text class="mode" x="115" y="1147">MODE 3</text>
+    <text class="setting" x="116" y="1189">CPOL = 1  ·  CPHA = 1</text>
+    <text class="setting" x="116" y="1231">Idle SCLK: HIGH</text>
+    <rect x="112" y="1256" width="295" height="54" rx="14" fill="#fff1e8"/>
+    <text class="sample-edge" x="132" y="1291">SAMPLE ON RISING ↑</text>
+    <text class="tiny" x="116" y="1345">Second edge samples the bit</text>
+    <text class="trace-label" x="490" y="1265">SCLK</text>
+    <path d="M575 1230 H850 V1290 H1180 V1230 H1510 V1290 H1840 V1230 H2215" fill="none" stroke="#167f91" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>
+    <g stroke="#b8c6d5" stroke-width="2" stroke-dasharray="5 8">
+      <path d="M850 1186 V1305"/><path d="M1180 1186 V1305"/><path d="M1510 1186 V1305"/><path d="M1840 1186 V1305"/>
+    </g>
+    <g>
+      <rect x="778" y="1166" width="144" height="38" rx="12" fill="#eaf2ff" stroke="#2766b1" stroke-width="2"/>
+      <text class="pill" x="850" y="1191" text-anchor="middle" fill="#205792">CHANGE</text>
+      <path d="M850 1204 V1247" stroke="#2766b1" stroke-width="3" marker-end="url(#changeArrow)"/>
+      <circle cx="850" cy="1260" r="10" fill="#2766b1" stroke="#fff" stroke-width="3"/>
+      <rect x="1108" y="1166" width="144" height="38" rx="12" fill="#fff1e8" stroke="#d65b20" stroke-width="2"/>
+      <text class="pill" x="1180" y="1191" text-anchor="middle" fill="#b84914">SAMPLE</text>
+      <path d="M1180 1204 V1247" stroke="#d65b20" stroke-width="3" marker-end="url(#sampleArrow)"/>
+      <circle cx="1180" cy="1260" r="10" fill="#d65b20" stroke="#fff" stroke-width="3"/>
+      <rect x="1438" y="1166" width="144" height="38" rx="12" fill="#eaf2ff" stroke="#2766b1" stroke-width="2"/>
+      <text class="pill" x="1510" y="1191" text-anchor="middle" fill="#205792">CHANGE</text>
+      <path d="M1510 1204 V1247" stroke="#2766b1" stroke-width="3" marker-end="url(#changeArrow)"/>
+      <circle cx="1510" cy="1260" r="10" fill="#2766b1" stroke="#fff" stroke-width="3"/>
+      <rect x="1768" y="1166" width="144" height="38" rx="12" fill="#fff1e8" stroke="#d65b20" stroke-width="2"/>
+      <text class="pill" x="1840" y="1191" text-anchor="middle" fill="#b84914">SAMPLE</text>
+      <path d="M1840 1204 V1247" stroke="#d65b20" stroke-width="3" marker-end="url(#sampleArrow)"/>
+      <circle cx="1840" cy="1260" r="10" fill="#d65b20" stroke="#fff" stroke-width="3"/>
+    </g>
+  </g>
+
+  <rect x="80" y="1410" width="2240" height="125" rx="22" fill="#e7edf5"/>
+  <text class="footer-head" x="115" y="1458">EASY RULE</text>
+  <text class="footer" x="315" y="1458">CPOL = idle level: 0 low, 1 high</text>
+  <text class="footer" x="900" y="1458">CPHA = first edge: 0 samples, 1 changes data</text>
+  <text class="footer" x="315" y="1503">At each SAMPLE edge, data must be stable. The opposite edge is used to change/shift the next bit.</text>
+  <text class="tiny" x="2260" y="1570" text-anchor="end">SPI timing reference · S = sample/read · CHANGE = shift/launch</text>
+</svg>
