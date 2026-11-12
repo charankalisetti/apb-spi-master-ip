@@ -13,6 +13,7 @@ Phase 1 top-level architecture is documented. RTL has not started.
 - [Phase 1 reference sheet](docs/01_architecture/phase_1_top_level_architecture.md)
 - [Editable draw.io diagram](docs/01_architecture/top_level_architecture.drawio)
 - [SVG diagram export](docs/01_architecture/top_level_architecture.svg)
+- [Baud-rate generator beginner guide](docs/04_baud_generator/baud_generator_beginner_guide.md)
 
 ## Proposed baseline
 
@@ -32,7 +33,8 @@ apb-spi-master-ip/
 ├── docs/
 │   ├── 01_architecture/       # Top-level diagrams and interface reference sheets
 │   ├── 02_fsm_flowcharts/     # Controller flowcharts (Phase 4)
-│   └── 03_learning_notes/     # Protocol notes and calculations
+│   ├── 03_learning_notes/     # Protocol notes and calculations
+│   └── 04_baud_generator/     # Baud-rate generator beginner guide and diagrams
 ├── rtl/                       # Synthesizable RTL, added module by module
 ├── tb/                        # Simulation testbench
 ├── scripts/                   # Build and automation scripts
