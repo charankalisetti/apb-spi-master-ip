@@ -90,10 +90,14 @@ module Baud_Rate_Generator_tb;
     initial begin
         initialize_inputs;
         reset_dut;
-
+			
+	
         run_spi_mode(1'b0, 1'b0); // Mode 0
+		#200;
         run_spi_mode(1'b0, 1'b1); // Mode 1
+		#200;
         run_spi_mode(1'b1, 1'b0); // Mode 2
+		#200;
         run_spi_mode(1'b1, 1'b1); // Mode 3
 
         #2000;
