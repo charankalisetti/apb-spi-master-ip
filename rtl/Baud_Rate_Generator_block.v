@@ -1,11 +1,11 @@
-module Baud_Rate_Generator(pclk,ss,P_aalreset,sppr,spr,cpol,cpha,
-spiswai,spi_mode,sclk_o,BaudRateDivisor,
+module Baud_Rate_Generator_block(pclk,ss,P_aalreset,sppr,spr,cpol,cpha,
+spiswai,spi_mode_i,sclk_o,BaudRateDivisor,
 miso_sample_on_sclk_rising_o,miso_sample_on_sclk_falling_o,
 mosi_update_on_sclk_rising_o,mosi_update_on_sclk_falling_o);
   
 input pclk,ss,P_aalreset,cpha,cpol,spiswai;
 input [2:0]sppr,spr;
-input [1:0]spi_mode;
+input [1:0]spi_mode_i;
 output [11:0]BaudRateDivisor;
 // One-PCLK-cycle clock enables for the SPI shifters; these are not SCLK clocks.
 // CPOL/CPHA select which edge-specific enable pulses during each SCLK period.
@@ -13,10 +13,19 @@ output sclk_o,
        miso_sample_on_sclk_rising_o,miso_sample_on_sclk_falling_o,
        mosi_update_on_sclk_rising_o,mosi_update_on_sclk_falling_o;
 
-parameter RUN=00;WAIT=01;STOP=10;
+// Declarations for the existing sequential logic and the added MOSI enables.
+reg sclk_o;
+reg miso_sample_on_sclk_rising_o;
+reg miso_sample_on_sclk_falling_o;
+reg mosi_update_on_sclk_rising_o;
+reg mosi_update_on_sclk_falling_o;
+reg [10:0] count;
+reg count_s;
+
+parameter RUN=2'b00,WAIT=2'b01,STOP=2'b10;
 
 
-assign BaudRateDivisor=(sppr+1)*(2**spr+1);
+assign BaudRateDivisor=(sppr+1)*(2**(spr+1));
 
 assign pre_sclk_o=cpol?1'b1:1'b0;
 
@@ -27,7 +36,7 @@ always@(posedge pclk or negedge P_aalreset)
 				count<=0;
 				sclk_o<=pre_sclk_o;
 			end
-		else if(!ss&&(RUN||WAIT)&&spiswai==0)
+		else if(!ss&& ((spi_mode_i ==RUN) || (spi_mode_i == WAIT))&&spiswai==0)
 			begin
 				if(count==((BaudRateDivisor/2)-1))
 					begin	
@@ -87,3 +96,35 @@ always@(posedge pclk or negedge P_aalreset)
 		
 		
 	
+    end // close the existing MISO timing always block
+
+// Update MOSI on the edge opposite the MISO sample edge.
+// The first MOSI bit must be loaded by the transmit shifter before its
+// first sample edge, especially when CPHA is 0.
+always @(posedge pclk or negedge P_aalreset)
+begin
+    if (!P_aalreset)
+    begin
+        mosi_update_on_sclk_rising_o  <= 1'b0;
+        mosi_update_on_sclk_falling_o <= 1'b0;
+    end
+    else
+    begin
+        mosi_update_on_sclk_rising_o  <= 1'b0;
+        mosi_update_on_sclk_falling_o <= 1'b0;
+
+        if (!ss &&((spi_mode_i == RUN) || ((spi_mode_i == WAIT) && !spiswai)) &&
+            (count == ((BaudRateDivisor / 2) - 1)))
+        begin
+            // Modes 1 and 2 change MOSI on a rising SCLK edge.
+            if ((cpol != cpha) && (sclk_o == 1'b0))
+                mosi_update_on_sclk_rising_o <= 1'b1;
+
+            // Modes 0 and 3 change MOSI on a falling SCLK edge.
+            if ((cpol == cpha) && (sclk_o == 1'b1))
+                mosi_update_on_sclk_falling_o <= 1'b1;
+        end
+    end
+end
+
+endmodule
