@@ -61,16 +61,16 @@
 <text x="1980" y="509" class="port">BaudRateDivisor_o[11:0]</text>
 
 <path d="M1550 650 H1940" class="out"/>
-<text x="1980" y="659" class="port">miso_receive_sclk_o</text>
+<text x="1980" y="659" class="port">miso_sample_on_sclk_rising_o</text>
 
 <path d="M1550 770 H1940" class="out"/>
-<text x="1980" y="779" class="port">miso_receive_sclk0_o</text>
+<text x="1980" y="779" class="port">miso_sample_on_sclk_falling_o</text>
 
 <path d="M1550 890 H1940" class="out"/>
-<text x="1980" y="899" class="port">mosi_send_sclk_o</text>
+<text x="1980" y="899" class="port">mosi_update_on_sclk_rising_o</text>
 
 <path d="M1550 1010 H1940" class="out"/>
-<text x="1980" y="1019" class="port">mosi_send_sclk0_o</text>
+<text x="1980" y="1019" class="port">mosi_update_on_sclk_falling_o</text>
 
 <!-- Port notes -->
 <text x="1695" y="1152" class="caption">sclk_o is the serial-clock output.</text>

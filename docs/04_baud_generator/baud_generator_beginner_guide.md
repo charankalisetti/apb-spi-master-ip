@@ -39,7 +39,7 @@ Read that peripheral's datasheet. Check its maximum SPI clock frequency and timi
 
 ![Baud-rate generator block diagram with clearly directed input and output arrows](baud-rate-generator-architecture.svg)
 
-In this diagram, the left-side arrows point into the block and the right-side arrows point out. `sclk_o` is the generated SPI clock. The four `*_sclk*` signals are internal timing strobes for the shifter, not four extra SPI clock pins.
+In this diagram, the left-side arrows point into the block and the right-side arrows point out. `sclk_o` is the generated SPI clock. The four edge-specific signals are shifter enables, not four extra SPI clock pins.
 
 ## 3. Inputs: source and purpose
 
@@ -65,12 +65,21 @@ The lecture's baud-rate block port list does not show `SPE` (SPI enable) or `MST
 |---|---:|---|
 | `sclk_o` | 1 | Serial clock driven toward the selected SPI peripheral. It idles at `CPOL` when the generator is inactive. |
 | `BaudRateDivisor_o` | 12 | Computed divisor `D`, made visible to the surrounding SPI logic. |
-| `miso_receive_sclk_o` | 1 | PCLK-synchronous pulse that tells the receive shifter when to sample MISO for one edge/polarity case. |
-| `miso_receive_sclk0_o` | 1 | The alternate MISO sample pulse for the other edge/polarity case. |
-| `mosi_send_sclk_o` | 1 | PCLK-synchronous pulse that tells the transmit shifter when to update MOSI for one edge/polarity case. |
-| `mosi_send_sclk0_o` | 1 | The alternate MOSI update pulse for the other edge/polarity case. |
+| `miso_sample_on_sclk_rising_o` | 1 | One-PCLK-cycle enable that tells the receive shifter to capture MISO on an SCLK rising edge. |
+| `miso_sample_on_sclk_falling_o` | 1 | One-PCLK-cycle enable that tells the receive shifter to capture MISO on an SCLK falling edge. |
+| `mosi_update_on_sclk_rising_o` | 1 | One-PCLK-cycle enable that tells the transmit shifter to prepare/update MOSI on an SCLK rising edge. |
+| `mosi_update_on_sclk_falling_o` | 1 | One-PCLK-cycle enable that tells the transmit shifter to prepare/update MOSI on an SCLK falling edge. |
 
-These strobes are generated in the `PCLK` domain so the shifter can use them as clock enables. The names ending in `sclk0` distinguish the alternate SCLK phase/edge case; their exact cycle relationship should be kept aligned with the chosen RTL and verified against waveforms when we reach verification.
+These four signals are **enables, not clocks**. The shifters stay clocked by `PCLK`; when an enable is high for one `PCLK` cycle, the matching shifter samples or updates one bit. `CPOL` and `CPHA` decide which edge enable is used:
+
+| SPI mode | MISO sample enable | MOSI update enable |
+|---:|---|---|
+| 0 (`CPOL=0`, `CPHA=0`) | `miso_sample_on_sclk_rising_o` | `mosi_update_on_sclk_falling_o` |
+| 1 (`CPOL=0`, `CPHA=1`) | `miso_sample_on_sclk_falling_o` | `mosi_update_on_sclk_rising_o` |
+| 2 (`CPOL=1`, `CPHA=0`) | `miso_sample_on_sclk_falling_o` | `mosi_update_on_sclk_rising_o` |
+| 3 (`CPOL=1`, `CPHA=1`) | `miso_sample_on_sclk_rising_o` | `mosi_update_on_sclk_falling_o` |
+
+The edge-specific enable is expected only while a transfer is allowed to run: reset is inactive, the peripheral is selected (`ss=0`), the system mode permits SPI operation, and the divider counter reaches the point that produces that SCLK edge. The source file currently contains only a partial MISO timing block, so these names and mode mapping describe the intended interface; the rising-edge and MOSI pulse logic still needs to be completed and checked against waveforms.
 
 ## 5. `SPPR` and `SPR`: how they set the speed
 
@@ -212,7 +221,7 @@ These are review findings from the source you supplied, not behaviors proven by 
 | `SPR` | Baud-rate selection setting in the SPI baud-rate register. |
 | `CPOL` | SCLK's idle polarity: low or high. |
 | `CPHA` | Choice of sampling edge relative to the idle clock level. |
-| Timing strobe | A one-PCLK-wide enable telling the shifter to sample or change a data bit. |
+| Timing enable | A one-PCLK-wide signal telling the shifter to sample or change a data bit while it remains clocked by PCLK. |
 | Active-low | A control is asserted when its logic value is 0. Here `ss_i=0` means selected. |
 
 ## Next step
