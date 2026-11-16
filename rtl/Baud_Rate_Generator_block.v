@@ -54,7 +54,9 @@ always@(posedge pclk or negedge P_aalreset)
 			end
 		// CPOL != CPHA selects SPI modes 1 and 2: MISO is sampled on
 		// the falling SCLK edge. sclk_o is high just before that edge.
-		else if((cpol&&!cpha)||(!cpol&&cpha))
+		else 
+			begin
+			if((cpol&&!cpha)||(!cpol&&cpha))
 			begin
 				if(sclk_o==1)
 					begin
@@ -65,5 +67,23 @@ always@(posedge pclk or negedge P_aalreset)
 					end	
 				else
 					miso_sample_on_sclk_falling_o<=0;
+			end	
 		else
 			miso_sample_on_sclk_falling_o<=0;
+		end
+		
+		if((cpol&&!cpha)||(!cpol&&cpha))
+			begin
+				if(sclk_o==0)
+					begin
+						if(count==((BaudRateDivisor/2)-1))
+							miso_sample_on_sclk_falling_o<=1;
+							else
+								miso_sample_on_sclk_falling_o<=0;
+					end	
+				else
+					miso_sample_on_sclk_falling_o<=0;
+			end	
+		
+		
+	
